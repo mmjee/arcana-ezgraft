@@ -7,14 +7,15 @@ async function main () {
     theme: 'light',
     position: 'right'
   })
-  await ap.init()
-  await ap.connect()
-  window.ethereum = ap.provider
+  const ep = ap.provider
+  window.ethereum = ep
   window.ethereum.enable = () => {
-    return window.ethereum.request({
+    return ep.request({
       method: 'eth_requestAccounts'
     })
   }
+  await ap.init()
+  await ap.connect()
 }
 
 main().catch(e => console.error(e))
